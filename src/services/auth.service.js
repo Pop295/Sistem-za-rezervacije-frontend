@@ -7,7 +7,10 @@ export const authService = {
       await delay()
       return { token: 'mock.jwt.token', user: { ...mockUser, email: payload.email } }
     }
-    const { data } = await api.post('/auth/login', payload)
+    const { data } = await api.post('/Auth/login', {
+      email: payload.email,
+      password: payload.password,
+    })
     return data
   },
   async register(payload) {
@@ -15,7 +18,12 @@ export const authService = {
       await delay()
       return { token: 'mock.jwt.token', user: { ...mockUser, name: payload.name, email: payload.email } }
     }
-    const { data } = await api.post('/auth/register', payload)
+    const { data } = await api.post('/Auth/register', {
+      fullName: payload.name,
+      email: payload.email,
+      password: payload.password,
+      phone: payload.phone,
+    })
     return data
   }
 }

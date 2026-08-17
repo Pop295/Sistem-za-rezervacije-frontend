@@ -5,8 +5,8 @@
   <nav class="border-b" style="border-color: var(--line);">
     <div class="max-w-6xl mx-auto px-6 py-5 flex items-center justify-between">
       <div class="flex items-center gap-2">
-        <div class="w-7 h-7 rounded-full" style="background: var(--accent);"></div>
-        <span class="font-display italic text-lg tracking-tight">Naziv Restorana</span>
+        <div class="w-10 h-7 rounded-full" style="background: var(--accent);"><img src="../assets/logo.jpeg" alt="logo"></div>
+        <span class="font-display italic text-lg tracking-tight">Dobrodošli</span>
       </div>
 
       <div class="hidden md:flex items-center gap-8 text-sm" style="color: var(--ink-soft);">
