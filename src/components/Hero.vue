@@ -1,13 +1,12 @@
 <script setup>
-import ReservationCalendar from './ReservationCalendar.vue';
-
+import ReservationCalendar from "./ReservationCalendar.vue";
+import heroImage from "../assets/hero.jpg";
 </script>
 
 <template>
   <section
     class="max-w-6xl mx-auto px-6 pt-16 pb-20 grid md:grid-cols-2 gap-14 items-center"
   >
-    <!--LEVA STRANA-->
     <div>
       <p class="text-xs mb-5 tracking-[0.2em]">
         REZERVACIJE &nbsp•&nbsp RESTORAN
@@ -38,6 +37,15 @@ import ReservationCalendar from './ReservationCalendar.vue';
         </button>
       </div>
     </div>
-    <ReservationCalendar />
+    <div
+      class="rounded-2xl overflow-hidden border"
+      style="border-color: var(--line)"
+    >
+      <img
+        :src="heroImage"
+        alt="Enterijer restorana"
+        class="w-full h-full object-cover"
+      />
+    </div>
   </section>
 </template>
