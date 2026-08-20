@@ -3,6 +3,7 @@ import { ref, computed } from 'vue'
 import { timeslotsService } from '../services/timeslots.service'
 import { OPENING_HOUR, CLOSING_HOUR, RESERVATION_DURATION_HOURS } from '../services/mock'
 import { useAuthStore } from '../stores/auth'
+
 const authStore = useAuthStore()
 
 // Primamo od roditelja (ReservationCalendar.vue): koja prostorija, koji dan/datum,

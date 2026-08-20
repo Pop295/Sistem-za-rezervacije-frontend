@@ -1,14 +1,20 @@
 import axios from 'axios'
 
-// Auth backend je gotov i povezan - koristimo prave podatke
 export const USE_MOCK = false
-
-// Termini/rezervacije jos nemaju kontroler na backendu - ostajemo na mock podacima
-// Promeni na false kad drugar napravi TimeSlots/Reservations kontroler
 export const USE_MOCK_RESERVATIONS = true
+export const USE_MOCK_PASSWORD = true  // drugar jos nije napravio ovaj endpoint
 
 const api = axios.create({
   baseURL: 'http://localhost:5127/api',
+})
+
+// Pre svakog zahteva, ako postoji token u localStorage, dodaj ga u Authorization header
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem('rez_access_token')
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`
+  }
+  return config
 })
 
 export default api

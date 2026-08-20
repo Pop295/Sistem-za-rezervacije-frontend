@@ -37,3 +37,12 @@ export const mockReservations = [
   { id: 10, serviceId: 1, tableNumber: 9, date: '2026-08-20', startTime: '19:00' },
   { id: 11, serviceId: 2, tableNumber: 1, date: '2026-08-19', startTime: '18:00' },
 ]
+
+// Mock notifikacije - backend jos nema Notifications kontroler, pa ove
+// prikazujemo svim ulogovanim korisnicima za sada (demo svrha, ne prave
+// licne notifikacije dok backend ne bude gotov)
+export const mockNotifications = [
+  { id: 1, message: 'Vaša rezervacija za 20.08. u 18:00 je potvrđena.', isRead: false },
+  { id: 2, message: 'Podsetnik: rezervacija sutra u 20:00, Privatna sala.', isRead: false },
+  { id: 3, message: 'Dobrodošli u Klod Mone! Vaš nalog je uspešno kreiran.', isRead: true },
+]
