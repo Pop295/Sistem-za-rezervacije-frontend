@@ -16,7 +16,7 @@ const month = 7;
 
 onMounted(async () => {
   services.value = await timeslotsService.getServices();
-  reservations.value = await timeslotsService.getReservations();
+  reservations.value = await timeslotsService.getTableAvailability();
   if (services.value.length) {
     selectedServiceId.value = services.value[0].id;
   }
@@ -187,7 +187,7 @@ function selectDay(day) {
       :reservations="reservationsForDay(selectedDay)"
       @reserved="
         reservations = [];
-        timeslotsService.getReservations().then((r) => (reservations = r));
+        timeslotsService.getTableAvailability().then((r) => (reservations = r));
       "
     />
   </div>
