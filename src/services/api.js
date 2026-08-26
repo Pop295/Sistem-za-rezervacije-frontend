@@ -1,8 +1,7 @@
 import axios from 'axios'
 
 export const USE_MOCK = false
-export const USE_MOCK_RESERVATIONS = true
-export const USE_MOCK_PASSWORD = true  // drugar jos nije napravio ovaj endpoint
+export const USE_MOCK_RESERVATIONS = false
 
 const api = axios.create({
   baseURL: 'http://localhost:5127/api',

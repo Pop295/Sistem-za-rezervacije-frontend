@@ -1,7 +1,7 @@
 import api, { USE_MOCK } from "./api";
 import { delay, mockUser } from "./mock";
 // Promena lozinke jos nema endpoint na backendu - mock za sada
-export const USE_MOCK_PASSWORD = true
+export const USE_MOCK_PASSWORD = false
 
 export const authService = {
   async login(payload) {
