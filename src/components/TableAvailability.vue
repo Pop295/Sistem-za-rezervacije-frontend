@@ -12,7 +12,8 @@ const props = defineProps({
   service: { type: Object, required: true },
   day: { type: Number, required: true },
   date: { type: String, required: true },
-  reservations: { type: Array, required: true }
+  reservations: { type: Array, required: true },
+  monthName: { type: String, default: '' } // npr. "Avgust", stize iz roditelja
 })
 
 // Obavestavamo roditelja kad rezervacija uspe, da osvezi podatke sa servera/mock-a
@@ -128,7 +129,7 @@ async function handleReserve() {
 <template>
   <div>
     <p class="text-xs uppercase tracking-wider mb-1" style="color: var(--ink-soft);">
-      {{ day }}. avgust — {{ service.name }}
+      {{ day }}. {{ (monthName || '').toLowerCase() }} — {{ service.name }}
     </p>
     <p class="text-sm mb-5" style="color: var(--ink-soft);">
       Radno vreme 09:00 – 01:00 · rezervacija traje {{ RESERVATION_DURATION_HOURS }}h

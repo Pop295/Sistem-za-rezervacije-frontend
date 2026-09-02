@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from "vue";
-import { useRouter } from "vue-router";
+import { useRouter, useRoute } from "vue-router";
 import { useAuthStore } from "../stores/auth";
 
 const name = ref("");
@@ -10,10 +10,32 @@ const error = ref("");
 const phone = ref("");
 
 const router = useRouter();
+const route = useRoute();
 const authStore = useAuthStore();
 
 async function handleRegister() {
   error.value = "";
+
+  // Ista logika kao kod Login-a: validiramo PRE slanja, da korisnik odmah
+  // vidi sta treba da ispravi umesto da ceka odgovor sa servera
+  if (!name.value.trim() || !email.value.trim() || !password.value.trim() || !phone.value.trim()) {
+    error.value = "Popunite sva polja.";
+    return;
+  }
+
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailPattern.test(email.value.trim())) {
+    error.value = "Unesite ispravnu email adresu.";
+    return;
+  }
+
+  // Placeholder polja za lozinku obecava "najmanje 6 karaktera" - ovo je
+  // taj uslov stvarno primenjen, a ne samo napisan kao tekst
+  if (password.value.length < 6) {
+    error.value = "Lozinka mora imati najmanje 6 karaktera.";
+    return;
+  }
+
   try {
     await authStore.register({
       name: name.value,
@@ -21,7 +43,7 @@ async function handleRegister() {
       password: password.value,
       phone: phone.value,
     });
-    router.push("/dashboard");
+    router.push(route.query.redirect || "/dashboard");
   } catch (err) {
     error.value = "Registracija nije uspela. Pokušajte ponovo.";
   }

@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from "vue";
-import { useRouter } from "vue-router";
+import { useRouter, useRoute } from "vue-router";
 import { useAuthStore } from "../stores/auth";
 
 /*
@@ -22,13 +22,38 @@ const password = ref("");
 const error = ref("");
 
 const router = useRouter();
+const route = useRoute();
 const authStore = useAuthStore();
+
+// Ako je ovde stigao jer mu je istekao token (vidi api.js response interceptor),
+// odmah mu to i kazemo - inace bi izgledalo kao da ga je aplikacija nasumicno izlogovala
+if (route.query.expired === "1") {
+  error.value = "Sesija je istekla. Ulogujte se ponovo.";
+}
 
 async function handleLogin() {
   error.value = "";
+
+  // Osnovna validacija PRE slanja zahteva - ako nesto fali, ne saljemo
+  // uzalud poziv ka backendu, odmah javljamo korisniku sta fali
+  if (!email.value.trim() || !password.value.trim()) {
+    error.value = "Unesite email i lozinku.";
+    return;
+  }
+  // Jednostavna provera formata email-a (nesto@nesto.nesto) - nije 100%
+  // stroga (kao ni prava email validacija ne moze biti bez slanja mejla),
+  // ali hvata ocigledne greske tipa "marko@" ili "marko.com"
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailPattern.test(email.value.trim())) {
+    error.value = "Unesite ispravnu email adresu.";
+    return;
+  }
+
   try {
     await authStore.login({ email: email.value, password: password.value });
-    router.push("/dashboard");
+    // Ako je korisnik ovde stigao preko redirect-a (npr. pokusao da otvori
+    // /dashboard bez logina), vracamo ga tacno tamo. Inace idemo na /dashboard.
+    router.push(route.query.redirect || "/dashboard");
   } catch (err) {
     error.value = "Pogrešan email ili lozinka.";
   }

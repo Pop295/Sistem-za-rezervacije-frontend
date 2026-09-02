@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { authService } from '../services/auth.service'
+import { getRoleFromToken } from '../utils/jwt'
 
 export const useAuthStore = defineStore('auth', {
   state: () => ({
@@ -8,8 +9,12 @@ export const useAuthStore = defineStore('auth', {
     loading: false
   }),
   getters: {
-    isAuthenticated: (s) => !!s.token
-  },
+  isAuthenticated: (s) => !!s.token,
+  role: (s) => (s.token ? getRoleFromToken(s.token) : null),
+  isAdmin() {
+    return this.role?.toLowerCase() === 'admin'
+  }
+},
   actions: {
     persist() {
       if (this.token) localStorage.setItem('rez_access_token', this.token)

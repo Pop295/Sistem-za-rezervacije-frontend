@@ -1,23 +1,23 @@
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
+import { timeslotsService } from "../services/timeslots.service";
 
-const services = ref([
-  {
-    name: "Terasa",
-    description:
-      "Otvoren prostor sa pogledom, idealan za tople večeri. Do 40 gostiju.",
-  },
-  {
-    name: "Glavna sala",
-    description:
-      "Topla, elegantna atmosfera za svakodnevne rezervacije. Do 60 gostiju.",
-  },
-  {
-    name: "Privatna sala",
-    description:
-      "Zatvoren prostor za proslave i poslovne večere. Do 20 gostiju.",
-  },
-]);
+// Prostorije se sada povlace sa backenda (GET /services), isto sto koristi
+// i kalendar u Termini stranici - ranije je ovde bio hardkodovan niz koji
+// se ne bi azurirao ako admin promeni opis/cenu prostorije u bazi
+const services = ref([]);
+const loading = ref(true);
+const error = ref("");
+
+onMounted(async () => {
+  try {
+    services.value = await timeslotsService.getServices();
+  } catch (err) {
+    error.value = "Nije moguće učitati prostorije. Pokušajte kasnije.";
+  } finally {
+    loading.value = false;
+  }
+});
 </script>
 
 <template>
@@ -29,10 +29,17 @@ const services = ref([
       >
     </div>
 
-    <div class="grid md:grid-cols-3 gap-6">
+    <p v-if="loading" class="text-sm" style="color: var(--ink-soft)">
+      Učitavanje...
+    </p>
+    <p v-else-if="error" class="text-sm" style="color: #a33a3a">
+      {{ error }}
+    </p>
+
+    <div v-else class="grid md:grid-cols-3 gap-6">
       <div
         v-for="service in services"
-        :key="service.name"
+        :key="service.id"
         class="rounded-2xl border p-7"
         style="background: var(--surface); border-color: var(--line)"
       >
