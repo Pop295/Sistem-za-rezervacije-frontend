@@ -1,5 +1,4 @@
 <script setup>
-import ReservationCalendar from "./ReservationCalendar.vue";
 import heroImage from "../assets/hero.jpg";
 </script>
 
@@ -29,12 +28,13 @@ import heroImage from "../assets/hero.jpg";
         >
           Izaberi termin →
         </router-link>
-        <button
+        <router-link
+          to="/meni"
           class="px-6 py-3 rounded-full text-sm font-medium border"
           style="border-color: var(--line)"
         >
           Pogledaj meni
-        </button>
+        </router-link>
       </div>
     </div>
     <div

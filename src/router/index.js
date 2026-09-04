@@ -8,6 +8,7 @@ import Onama from "../pages/Onama.vue";
 import Qna from "../pages/Qna.vue";
 import Admin from "../pages/Admin.vue";
 import { useAuthStore } from "../stores/auth";
+import Meni from "../pages/Meni.vue";
 
 const routes = [
   { path: "/", component: Home },
@@ -17,7 +18,12 @@ const routes = [
   { path: "/dashboard", component: Dashboard, meta: { requiresAuth: true } },
   { path: "/o-nama", component: Onama },
   { path: "/pitanja", component: Qna },
-  { path: "/admin", component: Admin, meta: { requiresAuth: true, requiresAdmin: true } },
+  {
+    path: "/admin",
+    component: Admin,
+    meta: { requiresAuth: true, requiresAdmin: true },
+  },
+  { path: "/meni", component: Meni },
 ];
 
 const router = createRouter({
