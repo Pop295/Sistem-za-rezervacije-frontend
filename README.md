@@ -37,7 +37,7 @@ Web aplikacija za rezervaciju mesta u restoranu (korisnički interfejs). Komunic
 
 ### Preduslovi
 
-- [Node.js](https://nodejs.org/) 20.19+ ili 22.12+ (zahtev novijih verzija Vite-a)
+- [Node.js](https://nodejs.org/) 20.19+ ili 22.12+ (testirano na verziji 24.18.0)
 - Pokrenut backend (uputstvo u [backend repozitorijumu](https://github.com/Pop295/Sistem-za-rezervacije-bekend))
 
 ### Koraci
