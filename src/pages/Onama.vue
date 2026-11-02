@@ -1,5 +1,5 @@
 <script setup>
-import { ChefHat, Wine, Building2 } from "lucide-vue-next";
+import { ChefHat, Wine, Building2 } from "@lucide/vue";
 </script>
 
 <template>
